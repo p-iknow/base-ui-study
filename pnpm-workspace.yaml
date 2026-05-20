@@ -1,0 +1,23 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+allowBuilds:
+  esbuild: true
+  nx: true
+  sharp: true
+
+catalog:
+  typescript: ~6.0.3
+  vitest: ^4.1.4
+  '@vitest/coverage-v8': ^4.1.4
+  '@tanstack/react-router': ^1.170.1
+  '@tanstack/react-start': ^1.168.2
+  '@types/node': ^24.10.0
+  '@types/react': ^19.2.14
+  '@types/react-dom': ^19.2.3
+  '@vitejs/plugin-react': ^6.0.1
+  react: ^19.2.5
+  react-dom: ^19.2.5
+  tsdown: ^0.22.0
+  vite: ^8.0.12

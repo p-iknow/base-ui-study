@@ -1,0 +1,50 @@
+# Disabled by default in this template repo.
+#
+# Fails any PR that modifies `packages/package` source/config without including
+# a `.changeset/*.md` entry. Safe to enable as-is (no secrets needed), but you
+# may want to update the path/package name first.
+#
+# To enable:
+#   1. Update `packages/package/...` paths and `@repo/package` references below
+#      if you've renamed/restructured the package.
+#   2. Uncomment every line below (remove the leading "# ").
+#
+# name: Changeset Check
+#
+# on:
+#   pull_request:
+#     types: [opened, synchronize, reopened, ready_for_review]
+#
+# permissions:
+#   contents: read
+#
+# jobs:
+#   changeset-check:
+#     if: github.event.pull_request.draft == false
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v6
+#         with:
+#           fetch-depth: 0
+#
+#       - name: Check for changeset
+#         run: |
+#           CHANGED=$(git diff --name-only origin/main...HEAD)
+#
+#           PACKAGE_CHANGED=$(echo "$CHANGED" | grep -Ec '^(packages/package/src/|packages/package/package\.json|packages/package/tsdown\.config\.ts)' || true)
+#
+#           if [ "$PACKAGE_CHANGED" -gt 0 ]; then
+#             CHANGESET_FILES=$(echo "$CHANGED" | grep -Ec '^\.changeset/.*\.md$' || true)
+#
+#             if [ "$CHANGESET_FILES" -eq 0 ]; then
+#               echo "::error::This PR changes the published @repo/package package but does not include a changeset."
+#               echo ""
+#               echo "Add one with:"
+#               echo "  pnpm changeset"
+#               exit 1
+#             fi
+#
+#             echo "Changeset found."
+#           else
+#             echo "No published package changes detected."
+#           fi

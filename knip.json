@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreFiles": ["sheriff.config.ts"],
+  "ignoreIssues": {
+    "packages/package/src/index.ts": ["types"]
+  },
+  "workspaces": {
+    ".": {
+      "ignoreDependencies": ["@vitest/coverage-v8", "vitest"]
+    },
+    "apps/playground": {
+      "entry": ["src/routes/**/*.tsx"],
+      "project": ["src/**/*.{ts,tsx}"]
+    },
+    "packages/package": {
+      "project": ["src/**/*.{ts,tsx}"],
+      "includeEntryExports": true
+    }
+  }
+}

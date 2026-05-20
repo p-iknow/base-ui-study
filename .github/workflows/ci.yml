@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  ci:
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        command:
+          [
+            'pnpm lint',
+            'pnpm format:check',
+            'pnpm typecheck',
+            'pnpm test',
+            'pnpm sheriff',
+            'pnpm knip',
+            'pnpm --filter @repo/package run build',
+            'pnpm --filter @repo/package run test:attw',
+            'pnpm --filter @repo/package run test:publint',
+          ]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          filter: tree:0
+          fetch-depth: 0
+
+      - uses: jdx/mise-action@v4
+
+      - uses: pnpm/action-setup@v6
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build Package
+        run: pnpm --filter @repo/package run build
+
+      - name: Sync injected workspace dependencies
+        run: pnpm install --frozen-lockfile --offline
+
+      - name: Run command
+        run: ${{ matrix.command }}
