@@ -120,10 +120,16 @@ importers:
 
   packages/react:
     dependencies:
+      '@base-ui-study/utils':
+        specifier: workspace:*
+        version: link:../utils
       react:
         specifier: 'catalog:'
         version: 19.2.6
     devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.12.4
       '@types/react':
         specifier: 'catalog:'
         version: 19.2.14

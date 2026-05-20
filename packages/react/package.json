@@ -18,6 +18,12 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./separator": {
+      "@repo/source": "./src/separator/index.ts",
+      "types": "./dist/separator/index.d.ts",
+      "import": "./dist/separator/index.js",
+      "default": "./dist/separator/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -26,9 +32,13 @@
     "typecheck": "tsc -b"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "@types/react": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@base-ui-study/utils": "workspace:*"
   },
   "peerDependencies": {
     "react": "catalog:"

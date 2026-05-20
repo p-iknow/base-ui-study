@@ -193,6 +193,40 @@ code {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
+.separator-demo {
+  display: grid;
+  gap: 22px;
+}
+
+.separator-row,
+.vertical-demo {
+  align-items: center;
+  color: #31423c;
+  display: flex;
+  font-weight: 750;
+  gap: 14px;
+}
+
+.demo-separator[data-orientation='horizontal'] {
+  background: #7d8a83;
+  height: 1px;
+  width: 100%;
+}
+
+.demo-separator[data-orientation='vertical'] {
+  align-self: stretch;
+  background: #7d8a83;
+  min-height: 56px;
+  width: 1px;
+}
+
+.rendered-separator {
+  border: 0;
+  border-top: 2px dashed #0f6b58;
+  margin: 0;
+  width: 100%;
+}
+
 @media (max-width: 720px) {
   .workspace,
   .section {

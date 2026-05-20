@@ -1,13 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Separator } from '@base-ui-study/react/separator'
 
 const learningOrder = [
   {
-    name: 'mergeProps',
-    status: 'First',
-    reason: 'Defines how public props and internal props combine before any component exists.',
+    name: 'Separator',
+    status: 'Phase 1',
+    reason: 'Applies the first render pipeline to a public component with ARIA and state attributes.',
   },
   {
-    name: 'composeRefs',
+    name: 'useMergedRefs',
     status: 'Next',
     reason: 'Makes forwarded refs, local refs, and render override refs work together.',
   },
@@ -46,17 +47,29 @@ function Home() {
         <section className="demo-panel" aria-labelledby="empty-start">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Reset</p>
-              <h2 id="empty-start">No cloned components yet</h2>
+              <p className="eyebrow">Phase 1</p>
+              <h2 id="empty-start">Separator</h2>
             </div>
             <code>packages/react/src</code>
           </div>
 
-          <div className="notes-grid">
-            <code>internals</code>
-            <code>primitive</code>
-            <code>playground</code>
-            <code>typecheck</code>
+          <div className="separator-demo">
+            <div className="separator-row">
+              <span>Account</span>
+              <Separator className="demo-separator" />
+              <span>Billing</span>
+            </div>
+
+            <div className="vertical-demo">
+              <span>Nav</span>
+              <Separator orientation="vertical" className="demo-separator" />
+              <span>Content</span>
+            </div>
+
+            <Separator
+              render={<hr className="rendered-separator" />}
+              aria-label="Rendered as horizontal rule"
+            />
           </div>
         </section>
       </section>
