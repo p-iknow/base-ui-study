@@ -1,25 +1,31 @@
-import { createGreeting } from '@repo/package'
+import { Button } from '@base-ui-study/react/button'
 import { createFileRoute } from '@tanstack/react-router'
 
-const examples = [
-  {
-    name: 'Root import',
-    importPath: '@repo/package',
-    code: createGreeting({ name: 'TypeScript' }),
-    description: 'Import the public API from the package root during local development.',
-  },
-  {
-    name: 'Subpath import',
-    importPath: '@repo/package/create-greeting',
-    code: createGreeting({ greeting: 'Welcome', name: 'Template User' }),
-    description: 'Export focused entrypoints when consumers should import a smaller surface.',
-  },
-]
+const componentPath =
+  '/Users/youngchang/dev/references/base-ui/packages/react/src/button/Button.tsx'
 
-const packageChecks = [
-  'pnpm --filter @repo/package run build',
-  'pnpm --filter @repo/package run test:attw',
-  'pnpm --filter @repo/package run test:publint',
+const learningOrder = [
+  {
+    name: 'Button',
+    status: 'Ready',
+    reason:
+      'DOM state, disabled semantics, ref merging, and render override are visible without context.',
+  },
+  {
+    name: 'Toggle',
+    status: 'Next',
+    reason: 'Adds controlled and uncontrolled state on top of Button.',
+  },
+  {
+    name: 'Meter',
+    status: 'After Toggle',
+    reason: 'Introduces compound parts, context, labels, and derived values.',
+  },
+  {
+    name: 'Checkbox',
+    status: 'Then',
+    reason: 'Adds form participation, mixed state, and hidden input behavior.',
+  },
 ]
 
 export const Route = createFileRoute('/')({
@@ -29,49 +35,68 @@ export const Route = createFileRoute('/')({
 function Home() {
   return (
     <main>
-      <section className="hero">
+      <section className="workspace">
         <div>
-          <p className="eyebrow">TypeScript Package Template</p>
-          <h1>@repo/package</h1>
+          <p className="eyebrow">Base UI Clone Study</p>
+          <h1>@base-ui-study/react</h1>
           <p className="lede">
-            A publishable TypeScript package with ESM and CommonJS builds, typed exports, workspace
-            source imports, and release checks.
+            Clone one headless component at a time from the local Base UI reference package. Start
+            with Button, then layer in state, context, and compound parts.
           </p>
           <pre>
-            <code>pnpm add @repo/package</code>
+            <code>{componentPath}</code>
           </pre>
         </div>
+
+        <section className="demo-panel" aria-labelledby="button-demo">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">First Clone</p>
+              <h2 id="button-demo">Button</h2>
+            </div>
+            <code>@base-ui-study/react/button</code>
+          </div>
+
+          <div className="button-row">
+            <Button className="demo-button">Native button</Button>
+            <Button className="demo-button" disabled>
+              Disabled
+            </Button>
+            <Button className="demo-button" disabled focusableWhenDisabled>
+              Focusable disabled
+            </Button>
+          </div>
+
+          <Button
+            className={(state) => (state.disabled ? 'render-button is-disabled' : 'render-button')}
+            render={<a href="https://base-ui.com/react/components/button">Render as link</a>}
+          />
+
+          <div className="notes-grid">
+            <code>data-disabled</code>
+            <code>aria-disabled</code>
+            <code>focusableWhenDisabled</code>
+            <code>render override</code>
+          </div>
+        </section>
       </section>
 
       <section className="section">
         <div className="section-heading">
-          <p className="eyebrow">API</p>
-          <h2>Example Exports</h2>
+          <div>
+            <p className="eyebrow">Roadmap</p>
+            <h2>Suggested Clone Order</h2>
+          </div>
         </div>
         <div className="api-list">
-          {examples.map((example) => (
-            <article className="api-item" key={example.importPath}>
+          {learningOrder.map((item) => (
+            <article className="api-item" key={item.name}>
               <div>
-                <h3>{example.name}</h3>
-                <p>{example.description}</p>
+                <h3>{item.name}</h3>
+                <p>{item.reason}</p>
               </div>
-              <div>
-                <code>{example.importPath}</code>
-                <code>{example.code}</code>
-              </div>
+              <code>{item.status}</code>
             </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-heading">
-          <p className="eyebrow">Package Checks</p>
-          <h2>Ready for Publishing</h2>
-        </div>
-        <div className="check-grid">
-          {packageChecks.map((command) => (
-            <code key={command}>{command}</code>
           ))}
         </div>
       </section>

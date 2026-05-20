@@ -1,1 +1,1 @@
-export default ['packages/package']
+export default ['packages/react', 'packages/utils']

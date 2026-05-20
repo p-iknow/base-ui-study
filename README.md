@@ -1,11 +1,11 @@
-# typescript-package-monorepo-template
+# base-ui-study
 
-Template for a TypeScript package-first pnpm monorepo.
+Study workspace for cloning Base UI headless React components one by one.
 
 This template keeps the full setup from the source repository:
 
 - pnpm workspace with `apps/*` and `packages/*`
-- publishable TypeScript package built with `tsdown`
+- Base UI clone package built with `tsdown`
 - `package.json` exports with `@repo/source` custom condition
 - playground app for local package development
 - Nx task pipeline
@@ -20,7 +20,7 @@ This template keeps the full setup from the source repository:
 apps/
   playground/        TanStack Start playground app
 packages/
-  package/           Publishable library package
+  react/     Study clone package
 ```
 
 ## Commands
@@ -37,9 +37,7 @@ pnpm format:check
 pnpm sheriff
 pnpm knip
 pnpm check
-pnpm --filter @repo/package run build
-pnpm --filter @repo/package run test:attw
-pnpm --filter @repo/package run test:publint
+pnpm --filter @base-ui-study/react run build
 ```
 
 ## Source-First Workspace Imports

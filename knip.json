@@ -2,17 +2,24 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "ignoreFiles": ["sheriff.config.ts"],
   "ignoreIssues": {
-    "packages/package/src/index.ts": ["types"]
+    "packages/react/src/index.ts": ["exports", "types"],
+    "packages/react/src/button/index.ts": ["exports", "types"],
+    "packages/react/src/button/Button.tsx": ["exports", "types"],
+    "packages/react/src/button/ButtonDataAttributes.ts": ["types"],
+    "packages/react/src/internals/useRenderElement.tsx": ["types"],
+    "packages/utils/src/**/*.{ts,tsx}": ["exports", "types"]
   },
   "workspaces": {
-    ".": {
-      "ignoreDependencies": ["@vitest/coverage-v8", "vitest"]
-    },
+    ".": {},
     "apps/playground": {
       "entry": ["src/routes/**/*.tsx"],
       "project": ["src/**/*.{ts,tsx}"]
     },
-    "packages/package": {
+    "packages/react": {
+      "project": ["src/**/*.{ts,tsx}"],
+      "includeEntryExports": true
+    },
+    "packages/utils": {
       "project": ["src/**/*.{ts,tsx}"],
       "includeEntryExports": true
     }

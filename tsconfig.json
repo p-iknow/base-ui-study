@@ -2,5 +2,5 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {},
   "files": [],
-  "references": [{ "path": "packages/package" }]
+  "references": [{ "path": "packages/react" }]
 }

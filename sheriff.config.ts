@@ -9,13 +9,15 @@ export const config: SheriffConfig = {
 
   modules: {
     'apps/playground/src': 'app:playground',
-    'packages/package/src': 'lib:package',
+    'packages/react/src': 'lib:react',
+    'packages/utils/src': 'lib:utils',
   },
 
   depRules: {
-    'app:*': [sameTag, 'lib:package'],
-    'lib:package': noDependencies,
-    root: ['app:*', 'lib:package', 'noTag'],
-    noTag: ['noTag', 'lib:package'],
+    'app:*': [sameTag, 'lib:react', 'lib:utils'],
+    'lib:react': ['lib:utils'],
+    'lib:utils': noDependencies,
+    root: ['app:*', 'lib:react', 'lib:utils', 'noTag'],
+    noTag: ['noTag', 'lib:react', 'lib:utils'],
   },
 }
