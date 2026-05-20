@@ -9,7 +9,8 @@
 3. 해당 컴포넌트를 완성하는 데 필요한 `packages/utils` 유틸만 먼저 구현한다.
 4. 해당 컴포넌트에 필요한 `packages/react/src/internals`만 만든다.
 5. public component, exports, playground 예제, 검증을 끝낸다.
-6. 다른 컴포넌트에서 쓰일 수 있는 범용화는 다음 phase에서 실제 재사용될 때만 확장한다.
+6. 완료 기록은 같은 디렉터리의 `phase-XX-name.learn.md`에 별도 문서로 작성한다.
+7. 다른 컴포넌트에서 쓰일 수 있는 범용화는 다음 phase에서 실제 재사용될 때만 확장한다.
 
 ## Phase 목록
 

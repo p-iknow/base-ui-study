@@ -7,9 +7,11 @@ Base UI를 그대로 복사하지 않고, `utils`와 `react` 패키지를 작은
 ## 문서 목록
 
 1. [Workflow](./workflow.md)
-   - 학습 원칙, 기본 작업 루프, 원본 읽기 규칙, 완료 기록 양식
+   - 학습 원칙, 기본 작업 루프, 원본 읽기 규칙, 완료 문서 규칙
 2. [Phase 목록](./phases/README.md)
    - 전체 vertical slice 순서
+3. Phase별 `*.learn.md`
+   - phase별 구현 결과와 학습 기록
 
 ## 빠른 시작
 
@@ -20,7 +22,7 @@ Base UI를 그대로 복사하지 않고, `utils`와 `react` 패키지를 작은
 3. [Phase 0. Monorepo와 패키지 기초](./phases/phase-00-monorepo-foundation.md)
 4. [Phase 1. Separator](./phases/phase-01-separator.md)
 
-첫 구현 목표는 `utils`의 ref/id/controlled state 흐름을 확인한 뒤 `Button`과 `Separator`를 다시 세우는 것이다.
+첫 구현 목표는 Phase 1에서 `Separator`를 통해 render pipeline, prop merging, ref 전달, state attribute 노출을 확인하고, Phase 2에서 `Button`을 통해 disabled semantics와 event handler 흐름을 학습하는 것이다.
 
 ## 참고 원본
 
@@ -59,6 +61,8 @@ Base UI의 public component API와 accessibility behavior를 학습용으로 구
 ## 목표
 
 이 클론은 의도적으로 Base UI보다 작게 유지한다. 목표는 advanced internals를 그대로 복사하기 전에 학습 흐름과 설계 이유를 보존하는 것이다.
+
+각 phase를 완료할 때는 phase 문서 옆에 `phase-XX-name.learn.md` 문서를 작성해 구현 결과, 학습 요소, 원본에서 줄인 범위, 다음 phase로 넘길 내용을 남긴다.
 
 ## Phase별 문서
 

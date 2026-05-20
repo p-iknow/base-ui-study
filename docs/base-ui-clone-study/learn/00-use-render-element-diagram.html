@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>useRenderElement Render Pipeline</title>
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --ink: #1d2433;
+        --muted: #5d6678;
+        --line: #c9d1dc;
+        --panel: #ffffff;
+        --blue: #2563eb;
+        --green: #0f766e;
+        --amber: #b45309;
+        --red: #be123c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        line-height: 1.5;
+      }
+
+      main {
+        width: min(1180px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 40px 0 56px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      .header {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .eyebrow {
+        color: var(--blue);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      h1 {
+        font-size: clamp(28px, 4vw, 46px);
+        line-height: 1.08;
+      }
+
+      .lead {
+        max-width: 840px;
+        color: var(--muted);
+        font-size: 17px;
+      }
+
+      .pipeline {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr 1fr;
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: 0 12px 32px rgba(29, 36, 51, 0.1);
+      }
+
+      .section-title {
+        padding: 18px 18px 0;
+        font-size: 18px;
+      }
+
+      .node,
+      .step,
+      .branch,
+      .legend-item {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .nodes,
+      .steps,
+      .branches {
+        display: grid;
+        gap: 12px;
+        padding: 18px;
+      }
+
+      .node,
+      .branch,
+      .legend-item {
+        padding: 14px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 12px;
+        padding: 12px;
+        background: #fbfcfe;
+      }
+
+      .badge {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border-radius: 50%;
+        background: #dbeafe;
+        color: var(--blue);
+        font-weight: 800;
+      }
+
+      h3 {
+        font-size: 15px;
+      }
+
+      .node p,
+      .step p,
+      .branch p,
+      .legend-item p {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      code {
+        padding: 2px 5px;
+        border: 1px solid #d8dee8;
+        border-radius: 5px;
+        background: #f8fafc;
+        font-family:
+          "SFMono-Regular", Consolas, "Liberation Mono", Menlo, ui-monospace, monospace;
+        overflow-wrap: anywhere;
+      }
+
+      .branch.default {
+        border-left: 5px solid var(--green);
+      }
+
+      .branch.element {
+        border-left: 5px solid var(--amber);
+      }
+
+      .branch.function {
+        border-left: 5px solid var(--red);
+      }
+
+      .flow-note {
+        display: grid;
+        grid-template-columns: 1fr auto 1.2fr auto 1fr;
+        gap: 10px;
+        align-items: center;
+        margin: 18px 0;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .arrow {
+        color: var(--blue);
+        font-size: 24px;
+      }
+
+      .legend {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      @media (max-width: 920px) {
+        .pipeline,
+        .flow-note {
+          grid-template-columns: 1fr;
+        }
+
+        .arrow {
+          transform: rotate(90deg);
+          justify-self: center;
+        }
+
+        .legend {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 560px) {
+        main {
+          width: min(100vw - 20px, 1180px);
+          padding-top: 24px;
+        }
+
+        .legend,
+        .step {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="header">
+        <p class="eyebrow">Base UI Clone Study</p>
+        <h1>useRenderElement Render Pipeline</h1>
+        <p class="lead">
+          public component가 계산한 state, ARIA props, 사용자 props를 공통 pipeline에서 합쳐
+          기본 태그, React element override, render function override 중 하나로 최종 element를
+          만든다.
+        </p>
+      </header>
+
+      <section class="pipeline" aria-label="useRenderElement flow">
+        <article class="panel">
+          <h2 class="section-title">입력</h2>
+          <div class="nodes">
+            <div class="node">
+              <h3>기본 태그 <code>element</code></h3>
+              <p><code>'div'</code>, <code>'button'</code>, <code>'input'</code>처럼 render prop이 없을 때 사용할 태그.</p>
+            </div>
+            <div class="node">
+              <h3>사용자 props <code>componentProps</code></h3>
+              <p><code>className</code>, <code>style</code>, <code>render</code>와 사용자가 넘긴 DOM props.</p>
+            </div>
+            <div class="node">
+              <h3>내부 렌더 재료 <code>params</code></h3>
+              <p><code>state</code>, <code>ref</code>, ARIA props, role, 사용자 element props 배열.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2 class="section-title">useRenderElement 내부 처리</h2>
+          <div class="steps">
+            <div class="step">
+              <div class="badge">1</div>
+              <div>
+                <h3>공통 props 추출</h3>
+                <p><code>className</code>, <code>style</code>, <code>render</code>를 componentProps에서 꺼낸다.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="badge">2</div>
+              <div>
+                <h3>ref 병합</h3>
+                <p>forwarded ref와 <code>render=&lt;element /&gt;</code>에 있던 ref를 합친다.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="badge">3</div>
+              <div>
+                <h3>props 병합</h3>
+                <p>내부 ARIA props와 사용자 DOM props 배열을 <code>mergeProps</code>로 합친다.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="badge">4</div>
+              <div>
+                <h3>state attributes 생성</h3>
+                <p><code>{ orientation: 'vertical' }</code>을 <code>data-orientation="vertical"</code>로 바꾼다.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="badge">5</div>
+              <div>
+                <h3>outProps 완성</h3>
+                <p>data attributes, ARIA, 사용자 props, className, style, ref가 하나의 props 객체가 된다.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2 class="section-title">출력</h2>
+          <div class="branches">
+            <div class="branch function">
+              <h3>render function</h3>
+              <p><code>render(outProps, state)</code>를 호출해서 사용자가 반환한 element를 사용한다.</p>
+            </div>
+            <div class="branch element">
+              <h3>React element override</h3>
+              <p><code>React.cloneElement(render, clonedProps)</code>로 사용자가 준 element에 props를 주입한다.</p>
+            </div>
+            <div class="branch default">
+              <h3>기본 태그</h3>
+              <p><code>React.createElement(element, outProps)</code>로 기본 태그를 렌더링한다.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <div class="flow-note" aria-hidden="true">
+        <span>Separator가 state와 ARIA props를 준비</span>
+        <span class="arrow">→</span>
+        <span>useRenderElement가 공통 렌더링 규칙을 적용</span>
+        <span class="arrow">→</span>
+        <span>최종 DOM element 생성</span>
+      </div>
+
+      <section class="legend" aria-label="design responsibilities">
+        <article class="legend-item">
+          <h2>컴포넌트 책임</h2>
+          <p>기본 태그, state, ARIA, public props 해석을 담당한다.</p>
+        </article>
+        <article class="legend-item">
+          <h2>hook 책임</h2>
+          <p>props 병합, ref 병합, render override, state attribute 생성을 담당한다.</p>
+        </article>
+        <article class="legend-item">
+          <h2>사용자 책임</h2>
+          <p>원하는 태그, className, style, render function을 선택한다.</p>
+        </article>
+        <article class="legend-item">
+          <h2>설계 효과</h2>
+          <p>모든 public component가 같은 커스터마이징 규칙을 공유한다.</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
