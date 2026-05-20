@@ -1,30 +1,25 @@
-import { Button } from '@base-ui-study/react/button'
 import { createFileRoute } from '@tanstack/react-router'
-
-const componentPath =
-  '/Users/youngchang/dev/references/base-ui/packages/react/src/button/Button.tsx'
 
 const learningOrder = [
   {
-    name: 'Button',
-    status: 'Ready',
-    reason:
-      'DOM state, disabled semantics, ref merging, and render override are visible without context.',
+    name: 'mergeProps',
+    status: 'First',
+    reason: 'Defines how public props and internal props combine before any component exists.',
   },
   {
-    name: 'Toggle',
+    name: 'composeRefs',
     status: 'Next',
-    reason: 'Adds controlled and uncontrolled state on top of Button.',
+    reason: 'Makes forwarded refs, local refs, and render override refs work together.',
   },
   {
-    name: 'Meter',
-    status: 'After Toggle',
-    reason: 'Introduces compound parts, context, labels, and derived values.',
-  },
-  {
-    name: 'Checkbox',
+    name: 'useRenderElement',
     status: 'Then',
-    reason: 'Adds form participation, mixed state, and hidden input behavior.',
+    reason: 'Creates the shared render pipeline for tag defaults and render overrides.',
+  },
+  {
+    name: 'Button',
+    status: 'After internals',
+    reason: 'Applies the first internal slice to one public primitive.',
   },
 ]
 
@@ -40,43 +35,28 @@ function Home() {
           <p className="eyebrow">Base UI Clone Study</p>
           <h1>@base-ui-study/react</h1>
           <p className="lede">
-            Clone one headless component at a time from the local Base UI reference package. Start
-            with Button, then layer in state, context, and compound parts.
+            Clone Base UI from the local reference package by rebuilding one small internal slice at
+            a time, then applying it to the smallest useful component.
           </p>
           <pre>
-            <code>{componentPath}</code>
+            <code>/Users/youngchang/dev/references/base-ui/packages/react</code>
           </pre>
         </div>
 
-        <section className="demo-panel" aria-labelledby="button-demo">
+        <section className="demo-panel" aria-labelledby="empty-start">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">First Clone</p>
-              <h2 id="button-demo">Button</h2>
+              <p className="eyebrow">Reset</p>
+              <h2 id="empty-start">No cloned components yet</h2>
             </div>
-            <code>@base-ui-study/react/button</code>
+            <code>packages/react/src</code>
           </div>
-
-          <div className="button-row">
-            <Button className="demo-button">Native button</Button>
-            <Button className="demo-button" disabled>
-              Disabled
-            </Button>
-            <Button className="demo-button" disabled focusableWhenDisabled>
-              Focusable disabled
-            </Button>
-          </div>
-
-          <Button
-            className={(state) => (state.disabled ? 'render-button is-disabled' : 'render-button')}
-            render={<a href="https://base-ui.com/react/components/button">Render as link</a>}
-          />
 
           <div className="notes-grid">
-            <code>data-disabled</code>
-            <code>aria-disabled</code>
-            <code>focusableWhenDisabled</code>
-            <code>render override</code>
+            <code>internals</code>
+            <code>primitive</code>
+            <code>playground</code>
+            <code>typecheck</code>
           </div>
         </section>
       </section>

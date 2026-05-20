@@ -2,7 +2,6 @@ import { defineConfig } from 'tsdown'
 
 const entry = {
   index: 'src/index.ts',
-  'button/index': 'src/button/index.ts',
 }
 
 export default defineConfig({

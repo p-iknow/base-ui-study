@@ -18,12 +18,6 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./button": {
-      "@repo/source": "./src/button/index.ts",
-      "types": "./dist/button/index.d.ts",
-      "import": "./dist/button/index.js",
-      "default": "./dist/button/index.js"
-    },
     "./package.json": "./package.json"
   },
   "scripts": {
