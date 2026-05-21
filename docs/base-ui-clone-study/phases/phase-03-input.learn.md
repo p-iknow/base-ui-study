@@ -39,6 +39,11 @@
   - `Field` 구현 시 `Input`을 다시 `Field.Control` 위임 구조로 바꿀지 검토한다.
   - DOM 테스트 인프라가 생기면 form submission, forwarded ref, native disabled submit 제외 동작을 테스트로 고정한다.
 
+## 별도 학습 노트
+
+- `getStateAttributesProps`와 custom mapping:
+  - `docs/base-ui-clone-study/learn/04-state-attributes-mapping.md`
+
 ## 읽은 원본
 
 - public component:
@@ -48,6 +53,9 @@
   - `/Users/youngchang/dev/references/base-ui/packages/react/src/field/control/FieldControl.tsx`
 - internals:
   - 로컬 `packages/react/src/internals/getStateAttributesProps.ts`
+  - `/Users/youngchang/dev/references/base-ui/packages/react/src/internals/getStateAttributesProps.test.ts`
+  - `/Users/youngchang/dev/references/base-ui/packages/react/src/internals/field-constants/constants.ts`
+  - `/Users/youngchang/dev/references/base-ui/packages/react/src/internals/stateAttributesMapping.ts`
 - utils:
   - 없음
 - tests:
