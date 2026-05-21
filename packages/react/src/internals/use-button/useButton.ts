@@ -30,17 +30,18 @@ export function useButton(parameters: UseButtonParameters = {}): UseButtonReturn
     elementRef.current = element
   })
 
-  const handleEnhancedActivation = React.useCallback((event: React.MouseEvent | React.PointerEvent) => {
-    if (disabled) {
-      event.preventDefault()
-    }
-  }, [disabled])
+  const handleEnhancedActivation = React.useCallback(
+    (event: React.MouseEvent | React.PointerEvent) => {
+      if (disabled) {
+        event.preventDefault()
+      }
+    },
+    [disabled],
+  )
 
   const enhancedClickHandlers = useEnhancedClickHandler(handleEnhancedActivation)
-  const {
-    onClick: handleEnhancedClick,
-    onPointerDown: handleEnhancedPointerDown,
-  } = enhancedClickHandlers
+  const { onClick: handleEnhancedClick, onPointerDown: handleEnhancedPointerDown } =
+    enhancedClickHandlers
 
   const getButtonProps = React.useCallback(
     (externalProps: React.ComponentPropsWithRef<any> = {}) => {

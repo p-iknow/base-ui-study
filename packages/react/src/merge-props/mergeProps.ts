@@ -99,9 +99,6 @@ function isEventPrevented(event: unknown) {
 
 function isSyntheticEvent(event: unknown): event is React.SyntheticEvent {
   return (
-    event !== null &&
-    event !== undefined &&
-    typeof event === 'object' &&
-    'nativeEvent' in event
+    event !== null && event !== undefined && typeof event === 'object' && 'nativeEvent' in event
   )
 }

@@ -1,4 +1,4 @@
 interface:
-  display_name: "Base UI Clone Study"
-  short_description: "Follow the Base UI clone study workflow."
-  default_prompt: "Use $base-ui-clone-study to implement the next Base UI clone phase."
+  display_name: 'Base UI Clone Study'
+  short_description: 'Follow the Base UI clone study workflow.'
+  default_prompt: 'Use $base-ui-clone-study to implement the next Base UI clone phase.'

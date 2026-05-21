@@ -1,7 +1,5 @@
 export type StateAttributesMapping<State> = {
-  [Property in keyof State]?: (
-    state: State[Property],
-  ) => Record<string, string> | null
+  [Property in keyof State]?: (state: State[Property]) => Record<string, string> | null
 }
 
 export function getStateAttributesProps<State extends object>(

@@ -1,2 +1,1 @@
 export { mergeProps } from './mergeProps'
-
