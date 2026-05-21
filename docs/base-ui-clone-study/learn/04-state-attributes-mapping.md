@@ -100,12 +100,18 @@ input:
 ```ts
 getStateAttributesProps(
   {
-    checked: false,
+    transitionStatus: 'idle',
     orientation: 'vertical',
   },
   {
-    checked(value) {
-      return value === true ? { 'data-state': 'checked' } : null
+    transitionStatus(value) {
+      if (value === 'starting') {
+        return { 'data-starting-style': '' }
+      }
+      if (value === 'ending') {
+        return { 'data-ending-style': '' }
+      }
+      return null
     },
   },
 )
@@ -119,7 +125,315 @@ output:
 }
 ```
 
-중요한 점은 `checked`에 mapping이 있다는 사실만으로 기본 변환은 건너뛴다는 것이다. 따라서 `null`을 반환해도 `data-checked="false"`나 `data-checked` 같은 fallback attribute는 생기지 않는다.
+중요한 점은 `transitionStatus`에 mapping이 있다는 사실만으로 기본 변환은 건너뛴다는 것이다. 따라서 mapping이 `null`을 반환해도 `data-transitionstatus="idle"` 같은 fallback attribute는 생기지 않는다.
+
+## `hasOwnProperty.call`을 쓰는 이유
+
+로컬 구현은 custom mapping을 확인할 때 다음 조건을 쓴다.
+
+```ts
+Object.prototype.hasOwnProperty.call(customMapping, key)
+```
+
+이 조건은 `customMapping[key]`가 truthy인지가 아니라, mapping 객체가 해당 key를 직접 가지고 있는지를 확인한다.
+
+이 구분이 필요한 이유는 custom mapping이 "이 state key는 내가 처리했고, 현재 값에서는 attribute를 만들지 않음"도 명시적으로 표현할 수 있어야 하기 때문이다.
+
+input:
+
+```ts
+getStateAttributesProps(
+  {
+    transitionStatus: 'idle',
+  },
+  {
+    transitionStatus(value) {
+      return value === 'starting' ? { 'data-starting-style': '' } : null
+    },
+  },
+)
+```
+
+output:
+
+```ts
+{}
+```
+
+여기서 `transitionStatus` mapping은 존재한다. 다만 `'idle'` 상태에서는 public attribute를 만들지 않기로 결정했기 때문에 `null`을 반환한다.
+
+이때 기본 변환으로 fallback하면 안 된다. fallback하면 custom mapping의 의도와 다르게 `transitionStatus` state를 다시 기본 규칙으로 처리하게 된다.
+
+fallback이 있었다면 잘못된 output은 다음처럼 된다.
+
+```ts
+{
+  'data-transitionstatus': 'idle',
+}
+```
+
+실제 흐름을 루프 기준으로 풀면 다음과 같다.
+
+```ts
+const key = 'transitionStatus'
+const value = 'idle'
+const props = {}
+
+if (Object.prototype.hasOwnProperty.call(customMapping, key)) {
+  const customProps = customMapping[key]?.(value)
+  // customProps는 null
+
+  if (customProps !== null) {
+    Object.assign(props, customProps)
+  }
+
+  continue
+}
+
+if (value === true) {
+  props[`data-${key.toLowerCase()}`] = ''
+} else if (value) {
+  props[`data-${key.toLowerCase()}`] = String(value)
+}
+```
+
+여기서 `continue`가 실행되므로 아래 기본 변환 블록까지 내려가지 않는다.
+
+```ts
+if (value === true) {
+  props[`data-${key.toLowerCase()}`] = ''
+} else if (value) {
+  props[`data-${key.toLowerCase()}`] = String(value)
+}
+```
+
+따라서 최종 output은 그대로 빈 객체다.
+
+```ts
+{}
+```
+
+만약 `continue`가 없어서 기본 변환 블록까지 실행된다면 `value`가 truthy string인 `'idle'`이므로 다음 attribute가 생긴다.
+
+```ts
+{
+  'data-transitionstatus': 'idle',
+}
+```
+
+이 attribute는 custom mapping이 의도한 public attribute가 아니므로 만들면 안 된다.
+
+또 `Object.prototype.hasOwnProperty.call` 형태는 prototype chain에 있는 속성을 mapping으로 오해하지 않고, 객체 자체의 `hasOwnProperty`가 없거나 덮어써진 경우에도 안전하다.
+
+prototype chain을 mapping으로 오해한다는 것은, `customMapping` 객체가 직접 가진 key가 아닌데도 `customMapping[key]` 접근에서 값이 나와서 mapping이 있는 것처럼 처리되는 경우를 말한다.
+
+예를 들어 다음 객체는 `customMapping` 자신에는 `checked` mapping만 가지고 있다. 하지만 prototype에는 `transitionStatus` mapping이 있다.
+
+```ts
+const inheritedMapping = {
+  transitionStatus(value: string) {
+    return { 'data-inherited-transition': value }
+  },
+}
+
+const customMapping = Object.create(inheritedMapping) as {
+  checked?: (value: boolean) => Record<string, string> | null
+  transitionStatus?: (value: string) => Record<string, string> | null
+}
+
+customMapping.checked = (value) => (value ? { 'data-state': 'checked' } : null)
+```
+
+이때 property 접근은 prototype chain을 따라가기 때문에 값이 나온다.
+
+```ts
+customMapping.transitionStatus // inheritedMapping.transitionStatus
+```
+
+만약 구현이 단순히 `customMapping[key]`로 mapping 존재 여부를 판단하면 `transitionStatus`를 직접 정의한 mapping으로 오해한다.
+
+```ts
+const key = 'transitionStatus'
+
+if (customMapping[key]) {
+  const customProps = customMapping[key]?.('idle')
+  Object.assign(props, customProps)
+}
+```
+
+잘못된 output:
+
+```ts
+{
+  'data-inherited-transition': 'idle',
+}
+```
+
+하지만 `customMapping` 객체가 직접 가진 own property만 확인하면 다르다.
+
+```ts
+Object.prototype.hasOwnProperty.call(customMapping, 'transitionStatus') // false
+Object.prototype.hasOwnProperty.call(customMapping, 'checked') // true
+```
+
+따라서 `transitionStatus`는 custom mapping이 없는 key로 보고 기본 변환을 적용하거나, 해당 state가 없으면 아무것도 하지 않는다. 의도치 않게 prototype의 함수를 public data attribute 생성 규칙으로 쓰지 않는다.
+
+예를 들어 `Object.create(null)`로 만든 객체는 `hasOwnProperty` 메서드가 없다.
+
+```ts
+const customMapping = Object.create(null)
+customMapping.checked = () => null
+
+customMapping.hasOwnProperty // undefined
+```
+
+또 일반 객체라도 `hasOwnProperty`라는 이름의 속성을 직접 가질 수 있다.
+
+```ts
+const customMapping = {
+  hasOwnProperty: () => false,
+  checked: () => ({ 'data-state': 'checked' }),
+}
+```
+
+그래서 helper 내부에서는 객체의 메서드를 직접 호출하지 않고 `Object.prototype.hasOwnProperty.call(customMapping, key)`를 사용한다.
+
+## `customMapping.hasOwnProperty(key)`로 쓰면 생기는 문제
+
+겉으로는 아래처럼 써도 같아 보인다.
+
+```ts
+customMapping.hasOwnProperty(key)
+```
+
+하지만 이 방식은 `customMapping` 객체가 항상 정상적인 `hasOwnProperty` 메서드를 가진다는 가정에 의존한다. 그 가정은 JavaScript 객체에서는 항상 맞지 않는다.
+
+### 문제 1. `Object.create(null)` 객체
+
+`Object.create(null)`로 만든 객체는 prototype이 없다. 따라서 `Object.prototype`에서 상속받는 `hasOwnProperty`도 없다.
+
+input:
+
+```ts
+const customMapping = Object.create(null) as {
+  checked?: (value: boolean) => Record<string, string> | null
+}
+
+customMapping.checked = (value) => (value ? { 'data-state': 'checked' } : null)
+
+getStateAttributesProps(
+  {
+    checked: true,
+  },
+  customMapping,
+)
+```
+
+만약 내부 구현이 다음과 같다면:
+
+```ts
+if (customMapping && customMapping.hasOwnProperty(key)) {
+  // ...
+}
+```
+
+실행 중에는 이렇게 된다.
+
+```ts
+customMapping.hasOwnProperty // undefined
+customMapping.hasOwnProperty('checked') // TypeError
+```
+
+즉 mapping 자체는 정상적으로 들어 있지만, 확인 과정에서 런타임 에러가 난다.
+
+현재 구현처럼 쓰면 이 문제가 없다.
+
+```ts
+Object.prototype.hasOwnProperty.call(customMapping, 'checked') // true
+```
+
+### 문제 2. `hasOwnProperty` 이름이 덮어써진 객체
+
+일반 객체라도 `hasOwnProperty`라는 이름의 속성을 직접 가질 수 있다.
+
+input:
+
+```ts
+const customMapping = {
+  hasOwnProperty: () => false,
+  checked(value: boolean) {
+    return value ? { 'data-state': 'checked' } : null
+  },
+}
+
+getStateAttributesProps(
+  {
+    checked: true,
+  },
+  customMapping,
+)
+```
+
+만약 내부 구현이 `customMapping.hasOwnProperty(key)`라면:
+
+```ts
+customMapping.hasOwnProperty('checked') // false
+```
+
+객체에는 실제로 `checked` mapping이 있지만, 덮어써진 `hasOwnProperty`가 `false`를 반환하므로 mapping이 없는 것처럼 처리된다.
+
+그 결과 기본 변환으로 fallback한다.
+
+잘못된 output:
+
+```ts
+{
+  'data-checked': '',
+}
+```
+
+기대한 output:
+
+```ts
+{
+  'data-state': 'checked',
+}
+```
+
+현재 구현처럼 쓰면 객체 안의 `hasOwnProperty` 속성을 무시하고 `Object.prototype`의 원래 메서드를 사용한다.
+
+```ts
+Object.prototype.hasOwnProperty.call(customMapping, 'checked') // true
+```
+
+그래서 `checked` mapping이 정상적으로 실행된다.
+
+### 문제 3. `hasOwnProperty`가 함수가 아닌 값인 객체
+
+`hasOwnProperty`가 함수가 아닌 값으로 들어온 경우도 있다.
+
+input:
+
+```ts
+const customMapping = {
+  hasOwnProperty: true,
+  checked(value: boolean) {
+    return value ? { 'data-state': 'checked' } : null
+  },
+}
+```
+
+직접 호출 방식은 런타임 에러를 낸다.
+
+```ts
+customMapping.hasOwnProperty('checked') // TypeError
+```
+
+`Object.prototype.hasOwnProperty.call` 방식은 정상 동작한다.
+
+```ts
+Object.prototype.hasOwnProperty.call(customMapping, 'checked') // true
+```
 
 ## 원본 Base UI에서의 사용
 
