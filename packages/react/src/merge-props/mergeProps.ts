@@ -1,13 +1,12 @@
 import type * as React from 'react'
+import type { BaseUIEvent } from '../internals/types'
 
 type ElementType = React.ElementType
 type PropsOf<T extends ElementType> = React.ComponentPropsWithoutRef<T> &
   React.RefAttributes<unknown>
 type InputProps<T extends ElementType> = PropsOf<T> | undefined
 
-export function mergeProps<T extends ElementType>(
-  ...propsList: Array<InputProps<T>>
-): PropsOf<T> {
+export function mergeProps<T extends ElementType>(...propsList: Array<InputProps<T>>): PropsOf<T> {
   const merged = {} as Record<string, unknown>
 
   propsList.forEach((props) => {
@@ -68,14 +67,41 @@ function mergeEventHandlers(
   }
 
   return (event: unknown) => {
+    makeEventPreventable(event)
     nextHandler(event)
-    previousHandler(event)
+    if (!isEventPrevented(event)) {
+      previousHandler(event)
+    }
   }
 }
 
-function isEventHandler(
-  name: string,
-  value: unknown,
-): value is (event: unknown) => void {
+function isEventHandler(name: string, value: unknown): value is (event: unknown) => void {
   return /^on[A-Z]/.test(name) && typeof value === 'function'
+}
+
+export function makeEventPreventable(event: unknown) {
+  if (!isSyntheticEvent(event)) {
+    return
+  }
+
+  const baseUIEvent = event as BaseUIEvent
+  baseUIEvent.preventBaseUIHandler = () => {
+    baseUIEvent.baseUIHandlerPrevented = true
+  }
+}
+
+function isEventPrevented(event: unknown) {
+  return (
+    isSyntheticEvent(event) &&
+    (event.defaultPrevented || (event as BaseUIEvent).baseUIHandlerPrevented)
+  )
+}
+
+function isSyntheticEvent(event: unknown): event is React.SyntheticEvent {
+  return (
+    event !== null &&
+    event !== undefined &&
+    typeof event === 'object' &&
+    'nativeEvent' in event
+  )
 }

@@ -158,6 +158,11 @@ code {
   gap: 12px;
 }
 
+.button-demo {
+  display: grid;
+  gap: 14px;
+}
+
 .demo-button,
 .render-button {
   align-items: center;
@@ -180,7 +185,7 @@ code {
 }
 
 .demo-button[data-disabled],
-.render-button.is-disabled {
+.render-button[data-disabled] {
   background: #d8ddd9;
   border-color: #c2cbc5;
   color: #61706a;

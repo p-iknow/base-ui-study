@@ -1,3 +1,5 @@
 export { useIsoLayoutEffect } from './useIsoLayoutEffect'
+export { isElementDisabled } from './isElementDisabled'
+export { mergeCleanups } from './mergeCleanups'
 export { useMergedRefs } from './useMergedRefs'
-
+export { useStableCallback } from './useStableCallback'

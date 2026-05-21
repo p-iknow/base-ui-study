@@ -24,6 +24,12 @@
       "import": "./dist/separator/index.js",
       "default": "./dist/separator/index.js"
     },
+    "./button": {
+      "@repo/source": "./src/button/index.ts",
+      "types": "./dist/button/index.d.ts",
+      "import": "./dist/button/index.js",
+      "default": "./dist/button/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -31,14 +37,14 @@
     "clean": "rm -rf dist *.tsbuildinfo",
     "typecheck": "tsc -b"
   },
+  "dependencies": {
+    "@base-ui-study/utils": "workspace:*"
+  },
   "devDependencies": {
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:"
-  },
-  "dependencies": {
-    "@base-ui-study/utils": "workspace:*"
   },
   "peerDependencies": {
     "react": "catalog:"

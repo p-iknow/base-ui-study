@@ -1,11 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Button } from '@base-ui-study/react/button'
 import { Separator } from '@base-ui-study/react/separator'
 
 const learningOrder = [
   {
     name: 'Separator',
     status: 'Phase 1',
-    reason: 'Applies the first render pipeline to a public component with ARIA and state attributes.',
+    reason:
+      'Applies the first render pipeline to a public component with ARIA and state attributes.',
   },
   {
     name: 'useMergedRefs',
@@ -19,8 +21,8 @@ const learningOrder = [
   },
   {
     name: 'Button',
-    status: 'After internals',
-    reason: 'Applies the first internal slice to one public primitive.',
+    status: 'Phase 2',
+    reason: 'Adds disabled semantics, focus rules, and click handling to a pressable primitive.',
   },
 ]
 
@@ -72,6 +74,58 @@ function Home() {
             />
           </div>
         </section>
+      </section>
+
+      <section className="section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Phase 2</p>
+            <h2>Button</h2>
+          </div>
+          <code>@base-ui-study/react/button</code>
+        </div>
+
+        <div className="button-demo">
+          <div className="button-row">
+            <Button className="demo-button">Native button</Button>
+            <Button className="demo-button" disabled>
+              Native disabled
+            </Button>
+            <Button className="demo-button" disabled focusableWhenDisabled>
+              Focusable disabled
+            </Button>
+          </div>
+
+          <div className="button-row">
+            <Button
+              nativeButton={false}
+              render={
+                <a className="render-button" href="#custom-button">
+                  Custom anchor
+                </a>
+              }
+            />
+            <Button
+              disabled
+              nativeButton={false}
+              render={
+                <a className="render-button" href="#disabled-custom">
+                  Disabled anchor
+                </a>
+              }
+            />
+            <Button
+              disabled
+              focusableWhenDisabled
+              nativeButton={false}
+              render={
+                <a className="render-button" href="#focusable-custom">
+                  Focusable anchor
+                </a>
+              }
+            />
+          </div>
+        </div>
       </section>
 
       <section className="section">
