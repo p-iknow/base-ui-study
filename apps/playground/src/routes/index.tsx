@@ -12,13 +12,15 @@ const playgroundRoutes = [
     to: '/phase-2',
     label: 'Button',
     status: 'Phase 2',
-    reason: 'Adds disabled semantics, focus rules, and click handling to a pressable primitive.',
+    reason:
+      'Adds disabled semantics, focus rules, and click handling to a pressable primitive.',
   },
   {
     to: '/phase-3',
     label: 'Input',
     status: 'Phase 3',
-    reason: 'Keeps native form control behavior while exposing input state attributes.',
+    reason:
+      'Keeps native form control behavior while exposing input state attributes.',
   },
   {
     to: '/roadmap',
@@ -40,8 +42,9 @@ function Home() {
           <p className="eyebrow">Base UI Clone Study</p>
           <h1>@base-ui-study/react</h1>
           <p className="lede">
-            Clone Base UI from the local reference package by rebuilding one small internal slice at
-            a time, then applying it to the smallest useful component.
+            Clone Base UI from the local reference package by rebuilding one
+            small internal slice at a time, then applying it to the smallest
+            useful component.
           </p>
           <pre>
             <code>/Users/youngchang/dev/references/base-ui/packages/react</code>

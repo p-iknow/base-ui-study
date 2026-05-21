@@ -1,5 +1,7 @@
 export type StateAttributesMapping<State> = {
-  [Property in keyof State]?: (state: State[Property]) => Record<string, string> | null
+  [Property in keyof State]?: (
+    state: State[Property],
+  ) => Record<string, string> | null
 }
 
 export function getStateAttributesProps<State extends object>(
@@ -11,7 +13,10 @@ export function getStateAttributesProps<State extends object>(
   for (const key in state) {
     const value = state[key]
 
-    if (customMapping && Object.prototype.hasOwnProperty.call(customMapping, key)) {
+    if (
+      customMapping &&
+      Object.prototype.hasOwnProperty.call(customMapping, key)
+    ) {
       const customProps = customMapping[key]?.(value)
       if (customProps !== null) {
         Object.assign(props, customProps)

@@ -34,7 +34,10 @@ export const Input = React.forwardRef(function InputComponent(
   )
 })
 
-export interface InputProps extends Omit<BaseUIComponentProps<'input', InputState>, 'render'> {
+export interface InputProps extends Omit<
+  BaseUIComponentProps<'input', InputState>,
+  'render'
+> {
   invalid?: boolean
 }
 

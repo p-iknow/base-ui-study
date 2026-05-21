@@ -6,7 +6,9 @@ type PropsOf<T extends ElementType> = React.ComponentPropsWithoutRef<T> &
   React.RefAttributes<unknown>
 type InputProps<T extends ElementType> = PropsOf<T> | undefined
 
-export function mergeProps<T extends ElementType>(...propsList: Array<InputProps<T>>): PropsOf<T> {
+export function mergeProps<T extends ElementType>(
+  ...propsList: Array<InputProps<T>>
+): PropsOf<T> {
   const merged = {} as Record<string, unknown>
 
   propsList.forEach((props) => {
@@ -16,7 +18,10 @@ export function mergeProps<T extends ElementType>(...propsList: Array<InputProps
 
     Object.entries(props).forEach(([name, value]) => {
       if (name === 'className') {
-        merged[name] = mergeClassNames(merged[name] as string | undefined, value as string)
+        merged[name] = mergeClassNames(
+          merged[name] as string | undefined,
+          value as string,
+        )
         return
       }
 
@@ -75,7 +80,10 @@ function mergeEventHandlers(
   }
 }
 
-function isEventHandler(name: string, value: unknown): value is (event: unknown) => void {
+function isEventHandler(
+  name: string,
+  value: unknown,
+): value is (event: unknown) => void {
   return /^on[A-Z]/.test(name) && typeof value === 'function'
 }
 
@@ -99,6 +107,9 @@ function isEventPrevented(event: unknown) {
 
 function isSyntheticEvent(event: unknown): event is React.SyntheticEvent {
   return (
-    event !== null && event !== undefined && typeof event === 'object' && 'nativeEvent' in event
+    event !== null &&
+    event !== undefined &&
+    typeof event === 'object' &&
+    'nativeEvent' in event
   )
 }

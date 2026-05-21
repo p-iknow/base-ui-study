@@ -10,22 +10,26 @@ const learningOrder = [
   {
     name: 'useMergedRefs',
     status: 'Next',
-    reason: 'Makes forwarded refs, local refs, and render override refs work together.',
+    reason:
+      'Makes forwarded refs, local refs, and render override refs work together.',
   },
   {
     name: 'useRenderElement',
     status: 'Then',
-    reason: 'Creates the shared render pipeline for tag defaults and render overrides.',
+    reason:
+      'Creates the shared render pipeline for tag defaults and render overrides.',
   },
   {
     name: 'Button',
     status: 'Phase 2',
-    reason: 'Adds disabled semantics, focus rules, and click handling to a pressable primitive.',
+    reason:
+      'Adds disabled semantics, focus rules, and click handling to a pressable primitive.',
   },
   {
     name: 'Input',
     status: 'Phase 3',
-    reason: 'Keeps native form control behavior while exposing input state attributes.',
+    reason:
+      'Keeps native form control behavior while exposing input state attributes.',
   },
 ]
 

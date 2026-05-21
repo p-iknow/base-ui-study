@@ -19,7 +19,9 @@ function collectEntries(dir: string): Record<string, string> {
     }
 
     const sourcePath = relative(process.cwd(), absolutePath)
-    const entryName = sourcePath.replace(/^src\//, '').replace(/\.(ts|tsx)$/, '')
+    const entryName = sourcePath
+      .replace(/^src\//, '')
+      .replace(/\.(ts|tsx)$/, '')
     entries[entryName] = sourcePath
   }
 

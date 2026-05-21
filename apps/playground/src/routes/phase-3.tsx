@@ -24,12 +24,21 @@ function PhaseThree() {
         <form className="input-demo" method="get">
           <label className="input-field">
             <span>Text</span>
-            <Input className="demo-input" name="title" placeholder="Project title" />
+            <Input
+              className="demo-input"
+              name="title"
+              placeholder="Project title"
+            />
           </label>
 
           <label className="input-field">
             <span>Required</span>
-            <Input className="demo-input" name="owner" placeholder="Owner" required />
+            <Input
+              className="demo-input"
+              name="owner"
+              placeholder="Owner"
+              required
+            />
           </label>
 
           <label className="input-field">

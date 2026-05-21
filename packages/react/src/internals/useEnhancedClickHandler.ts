@@ -4,7 +4,10 @@ import * as React from 'react'
 export type InteractionType = 'mouse' | 'touch' | 'pen' | 'keyboard' | ''
 
 export function useEnhancedClickHandler(
-  handler: (event: React.MouseEvent | React.PointerEvent, interactionType: InteractionType) => void,
+  handler: (
+    event: React.MouseEvent | React.PointerEvent,
+    interactionType: InteractionType,
+  ) => void,
 ) {
   const lastPointerTypeRef = React.useRef<InteractionType>('')
 

@@ -152,7 +152,9 @@
         border: 1px solid #d8dee8;
         border-radius: 5px;
         background: #f8fafc;
-        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, ui-monospace, monospace;
+        font-family:
+          'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, ui-monospace,
+          monospace;
         overflow-wrap: anywhere;
       }
 
@@ -225,8 +227,9 @@
         <p class="eyebrow">Base UI Clone Study</p>
         <h1>useRenderElement Render Pipeline</h1>
         <p class="lead">
-          public component가 계산한 state, ARIA props, 사용자 props를 공통 pipeline에서 합쳐 기본
-          태그, React element override, render function override 중 하나로 최종 element를 만든다.
+          public component가 계산한 state, ARIA props, 사용자 props를 공통
+          pipeline에서 합쳐 기본 태그, React element override, render function
+          override 중 하나로 최종 element를 만든다.
         </p>
       </header>
 
@@ -237,21 +240,22 @@
             <div class="node">
               <h3>기본 태그 <code>element</code></h3>
               <p>
-                <code>'div'</code>, <code>'button'</code>, <code>'input'</code>처럼 render prop이
-                없을 때 사용할 태그.
+                <code>'div'</code>, <code>'button'</code>,
+                <code>'input'</code>처럼 render prop이 없을 때 사용할 태그.
               </p>
             </div>
             <div class="node">
               <h3>사용자 props <code>componentProps</code></h3>
               <p>
-                <code>className</code>, <code>style</code>, <code>render</code>와 사용자가 넘긴 DOM
-                props.
+                <code>className</code>, <code>style</code>,
+                <code>render</code>와 사용자가 넘긴 DOM props.
               </p>
             </div>
             <div class="node">
               <h3>내부 렌더 재료 <code>params</code></h3>
               <p>
-                <code>state</code>, <code>ref</code>, ARIA props, role, 사용자 element props 배열.
+                <code>state</code>, <code>ref</code>, ARIA props, role, 사용자
+                element props 배열.
               </p>
             </div>
           </div>
@@ -265,8 +269,8 @@
               <div>
                 <h3>공통 props 추출</h3>
                 <p>
-                  <code>className</code>, <code>style</code>, <code>render</code>를
-                  componentProps에서 꺼낸다.
+                  <code>className</code>, <code>style</code>,
+                  <code>render</code>를 componentProps에서 꺼낸다.
                 </p>
               </div>
             </div>
@@ -274,14 +278,20 @@
               <div class="badge">2</div>
               <div>
                 <h3>ref 병합</h3>
-                <p>forwarded ref와 <code>render=&lt;element /&gt;</code>에 있던 ref를 합친다.</p>
+                <p>
+                  forwarded ref와 <code>render=&lt;element /&gt;</code>에 있던
+                  ref를 합친다.
+                </p>
               </div>
             </div>
             <div class="step">
               <div class="badge">3</div>
               <div>
                 <h3>props 병합</h3>
-                <p>내부 ARIA props와 사용자 DOM props 배열을 <code>mergeProps</code>로 합친다.</p>
+                <p>
+                  내부 ARIA props와 사용자 DOM props 배열을
+                  <code>mergeProps</code>로 합친다.
+                </p>
               </div>
             </div>
             <div class="step">
@@ -299,8 +309,8 @@
               <div>
                 <h3>outProps 완성</h3>
                 <p>
-                  data attributes, ARIA, 사용자 props, className, style, ref가 하나의 props 객체가
-                  된다.
+                  data attributes, ARIA, 사용자 props, className, style, ref가
+                  하나의 props 객체가 된다.
                 </p>
               </div>
             </div>
@@ -313,19 +323,23 @@
             <div class="branch function">
               <h3>render function</h3>
               <p>
-                <code>render(outProps, state)</code>를 호출해서 사용자가 반환한 element를 사용한다.
+                <code>render(outProps, state)</code>를 호출해서 사용자가 반환한
+                element를 사용한다.
               </p>
             </div>
             <div class="branch element">
               <h3>React element override</h3>
               <p>
-                <code>React.cloneElement(render, clonedProps)</code>로 사용자가 준 element에 props를
-                주입한다.
+                <code>React.cloneElement(render, clonedProps)</code>로 사용자가
+                준 element에 props를 주입한다.
               </p>
             </div>
             <div class="branch default">
               <h3>기본 태그</h3>
-              <p><code>React.createElement(element, outProps)</code>로 기본 태그를 렌더링한다.</p>
+              <p>
+                <code>React.createElement(element, outProps)</code>로 기본
+                태그를 렌더링한다.
+              </p>
             </div>
           </div>
         </article>
@@ -346,7 +360,10 @@
         </article>
         <article class="legend-item">
           <h2>hook 책임</h2>
-          <p>props 병합, ref 병합, render override, state attribute 생성을 담당한다.</p>
+          <p>
+            props 병합, ref 병합, render override, state attribute 생성을
+            담당한다.
+          </p>
         </article>
         <article class="legend-item">
           <h2>사용자 책임</h2>

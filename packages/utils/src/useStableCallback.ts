@@ -3,7 +3,9 @@ import { useIsoLayoutEffect } from './useIsoLayoutEffect'
 
 type Callback = (...args: never[]) => unknown
 
-export function useStableCallback<T extends Callback>(callback: T | undefined): T {
+export function useStableCallback<T extends Callback>(
+  callback: T | undefined,
+): T {
   const callbackRef = React.useRef(callback)
 
   useIsoLayoutEffect(() => {

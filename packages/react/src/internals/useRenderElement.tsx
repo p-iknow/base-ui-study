@@ -1,20 +1,28 @@
 import { useMergedRefs } from '@base-ui-study/utils/useMergedRefs'
 import * as React from 'react'
 import { mergeClassNames, mergeProps } from '../merge-props/mergeProps'
-import { getStateAttributesProps, type StateAttributesMapping } from './getStateAttributesProps'
+import {
+  getStateAttributesProps,
+  type StateAttributesMapping,
+} from './getStateAttributesProps'
 import type { BaseUIComponentProps } from './types'
 
 type IntrinsicTagName = keyof React.JSX.IntrinsicElements
 
-type RenderFunctionProps<TagName extends IntrinsicTagName> = React.JSX.IntrinsicElements[TagName]
+type RenderFunctionProps<TagName extends IntrinsicTagName> =
+  React.JSX.IntrinsicElements[TagName]
 
 export type UseRenderElementParameters<
   State extends object,
   RenderedElementType extends Element,
   TagName extends IntrinsicTagName,
 > = {
-  props?: RenderFunctionProps<TagName> | Array<RenderFunctionProps<TagName> | undefined>
-  ref?: React.Ref<RenderedElementType> | Array<React.Ref<RenderedElementType> | undefined>
+  props?:
+    | RenderFunctionProps<TagName>
+    | Array<RenderFunctionProps<TagName> | undefined>
+  ref?:
+    | React.Ref<RenderedElementType>
+    | Array<React.Ref<RenderedElementType> | undefined>
   state?: State
   stateAttributesMapping?: StateAttributesMapping<State>
 }
@@ -30,7 +38,9 @@ export function useRenderElement<
 ) {
   const { className: classNameProp, render, style: styleProp } = componentProps
   const state = params.state ?? ({} as State)
-  const renderElementRef = React.isValidElement(render) ? getReactElementRef(render) : undefined
+  const renderElementRef = React.isValidElement(render)
+    ? getReactElementRef(render)
+    : undefined
   const refs = Array.isArray(params.ref) ? params.ref : [params.ref]
   const mergedRef = useMergedRefs(
     refs[0],
@@ -41,14 +51,19 @@ export function useRenderElement<
 
   const resolvedProps = Array.isArray(params.props)
     ? mergeProps<TagName>(
-        ...(params.props as Array<React.ComponentPropsWithoutRef<TagName> | undefined>),
+        ...(params.props as Array<
+          React.ComponentPropsWithoutRef<TagName> | undefined
+        >),
       )
-    : mergeProps<TagName>(params.props as React.ComponentPropsWithoutRef<TagName> | undefined)
+    : mergeProps<TagName>(
+        params.props as React.ComponentPropsWithoutRef<TagName> | undefined,
+      )
 
   const outProps = {
     ...getStateAttributesProps(state, params.stateAttributesMapping),
     ...resolvedProps,
-  } as React.HTMLAttributes<HTMLElement> & React.RefAttributes<RenderedElementType>
+  } as React.HTMLAttributes<HTMLElement> &
+    React.RefAttributes<RenderedElementType>
 
   const className = resolveValue(classNameProp, state)
   if (className !== undefined) {
@@ -70,7 +85,10 @@ export function useRenderElement<
   }
 
   if (React.isValidElement(render)) {
-    const clonedProps = mergeProps(outProps, render.props as React.HTMLAttributes<HTMLElement>)
+    const clonedProps = mergeProps(
+      outProps,
+      render.props as React.HTMLAttributes<HTMLElement>,
+    )
     clonedProps.ref = mergedRef
     return React.cloneElement(render, clonedProps)
   }
@@ -89,6 +107,8 @@ function resolveValue<Value, State>(
   return value
 }
 
-function getReactElementRef<T>(element: React.ReactElement): React.Ref<T> | undefined {
+function getReactElementRef<T>(
+  element: React.ReactElement,
+): React.Ref<T> | undefined {
   return (element.props as { ref?: React.Ref<T> }).ref
 }

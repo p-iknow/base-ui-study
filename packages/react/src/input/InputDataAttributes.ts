@@ -3,4 +3,5 @@ export const InputDataAttributes = {
   invalid: 'data-invalid',
 } as const
 
-export type InputDataAttributes = (typeof InputDataAttributes)[keyof typeof InputDataAttributes]
+export type InputDataAttributes =
+  (typeof InputDataAttributes)[keyof typeof InputDataAttributes]

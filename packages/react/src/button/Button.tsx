@@ -1,5 +1,8 @@
 import * as React from 'react'
-import type { BaseUIComponentProps, NativeButtonProps } from '../internals/types'
+import type {
+  BaseUIComponentProps,
+  NativeButtonProps,
+} from '../internals/types'
 import { useButton } from '../internals/use-button'
 import { useRenderElement } from '../internals/useRenderElement'
 

@@ -17,7 +17,9 @@ export interface UseButtonReturnValue {
   buttonRef: React.Ref<HTMLElement>
 }
 
-export function useButton(parameters: UseButtonParameters = {}): UseButtonReturnValue {
+export function useButton(
+  parameters: UseButtonParameters = {},
+): UseButtonReturnValue {
   const {
     disabled = false,
     focusableWhenDisabled = false,
@@ -39,13 +41,23 @@ export function useButton(parameters: UseButtonParameters = {}): UseButtonReturn
     [disabled],
   )
 
-  const enhancedClickHandlers = useEnhancedClickHandler(handleEnhancedActivation)
-  const { onClick: handleEnhancedClick, onPointerDown: handleEnhancedPointerDown } =
-    enhancedClickHandlers
+  const enhancedClickHandlers = useEnhancedClickHandler(
+    handleEnhancedActivation,
+  )
+  const {
+    onClick: handleEnhancedClick,
+    onPointerDown: handleEnhancedPointerDown,
+  } = enhancedClickHandlers
 
   const getButtonProps = React.useCallback(
     (externalProps: React.ComponentPropsWithRef<any> = {}) => {
-      const { onClick, onKeyDown, onKeyUp, onPointerDown, ...otherExternalProps } = externalProps
+      const {
+        onClick,
+        onKeyDown,
+        onKeyUp,
+        onPointerDown,
+        ...otherExternalProps
+      } = externalProps
       const baseProps: React.ComponentPropsWithRef<any> = isNativeButton
         ? { type: 'button' }
         : { role: 'button' }
