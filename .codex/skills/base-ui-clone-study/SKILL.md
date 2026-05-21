@@ -37,6 +37,16 @@ packages/react
 apps/playground
 ```
 
+Playground route convention:
+
+```txt
+apps/playground/src/routes/index.tsx            route hub
+apps/playground/src/routes/phase-N.tsx          phase example route
+apps/playground/src/routes/roadmap.tsx          learning order route
+```
+
+When adding a phase playground example, prefer a dedicated phase route instead of accumulating every demo in `index.tsx`. Keep `index.tsx` as the route hub, add or update the matching `/phase-N` link there, and let TanStack Router regenerate `apps/playground/src/routeTree.gen.ts` during typecheck/build.
+
 Upstream Base UI reference:
 
 ```txt

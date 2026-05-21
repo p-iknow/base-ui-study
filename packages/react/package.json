@@ -30,6 +30,12 @@
       "import": "./dist/button/index.js",
       "default": "./dist/button/index.js"
     },
+    "./input": {
+      "@repo/source": "./src/input/index.ts",
+      "types": "./dist/input/index.d.ts",
+      "import": "./dist/input/index.js",
+      "default": "./dist/input/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {

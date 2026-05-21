@@ -39,7 +39,7 @@
 5. 컴포넌트를 완성하는 데 필요한 `packages/utils/src` 유틸을 구현하거나 정리한다.
 6. 컴포넌트 내부 구현에 필요한 `packages/react/src/internals`를 최소 범위로 만든다.
 7. `packages/react/src`에 public component를 구현하고 export를 정리한다.
-8. `apps/playground`에 실제 사용 예제를 추가한다.
+8. `apps/playground`에 실제 사용 예제를 추가한다. phase 예제는 가능하면 `apps/playground/src/routes/phase-N.tsx`에 분리하고, `index.tsx`는 route hub로 유지한다.
 9. `pnpm typecheck`와 `pnpm build`를 실행한다.
 10. 가능하면 slice 단위 테스트를 추가한다.
 11. phase별 학습 완료 문서를 phase 문서 옆에 작성한다.

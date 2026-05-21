@@ -1,28 +1,30 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Button } from '@base-ui-study/react/button'
-import { Separator } from '@base-ui-study/react/separator'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
-const learningOrder = [
+const playgroundRoutes = [
   {
-    name: 'Separator',
+    to: '/phase-1',
+    label: 'Separator',
     status: 'Phase 1',
     reason:
       'Applies the first render pipeline to a public component with ARIA and state attributes.',
   },
   {
-    name: 'useMergedRefs',
-    status: 'Next',
-    reason: 'Makes forwarded refs, local refs, and render override refs work together.',
-  },
-  {
-    name: 'useRenderElement',
-    status: 'Then',
-    reason: 'Creates the shared render pipeline for tag defaults and render overrides.',
-  },
-  {
-    name: 'Button',
+    to: '/phase-2',
+    label: 'Button',
     status: 'Phase 2',
     reason: 'Adds disabled semantics, focus rules, and click handling to a pressable primitive.',
+  },
+  {
+    to: '/phase-3',
+    label: 'Input',
+    status: 'Phase 3',
+    reason: 'Keeps native form control behavior while exposing input state attributes.',
+  },
+  {
+    to: '/roadmap',
+    label: 'Suggested Clone Order',
+    status: 'Roadmap',
+    reason: 'Lists the current learning order for upcoming study slices.',
   },
 ]
 
@@ -46,106 +48,26 @@ function Home() {
           </pre>
         </div>
 
-        <section className="demo-panel" aria-labelledby="empty-start">
+        <section className="demo-panel" aria-labelledby="playground-routes">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Phase 1</p>
-              <h2 id="empty-start">Separator</h2>
+              <p className="eyebrow">Playground</p>
+              <h2 id="playground-routes">Routes</h2>
             </div>
-            <code>packages/react/src</code>
           </div>
 
-          <div className="separator-demo">
-            <div className="separator-row">
-              <span>Account</span>
-              <Separator className="demo-separator" />
-              <span>Billing</span>
-            </div>
-
-            <div className="vertical-demo">
-              <span>Nav</span>
-              <Separator orientation="vertical" className="demo-separator" />
-              <span>Content</span>
-            </div>
-
-            <Separator
-              render={<hr className="rendered-separator" />}
-              aria-label="Rendered as horizontal rule"
-            />
+          <div className="api-list">
+            {playgroundRoutes.map((item) => (
+              <Link className="api-item route-link" key={item.to} to={item.to}>
+                <div>
+                  <h3>{item.label}</h3>
+                  <p>{item.reason}</p>
+                </div>
+                <code>{item.status}</code>
+              </Link>
+            ))}
           </div>
         </section>
-      </section>
-
-      <section className="section">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Phase 2</p>
-            <h2>Button</h2>
-          </div>
-          <code>@base-ui-study/react/button</code>
-        </div>
-
-        <div className="button-demo">
-          <div className="button-row">
-            <Button className="demo-button">Native button</Button>
-            <Button className="demo-button" disabled>
-              Native disabled
-            </Button>
-            <Button className="demo-button" disabled focusableWhenDisabled>
-              Focusable disabled
-            </Button>
-          </div>
-
-          <div className="button-row">
-            <Button
-              nativeButton={false}
-              render={
-                <a className="render-button" href="#custom-button">
-                  Custom anchor
-                </a>
-              }
-            />
-            <Button
-              disabled
-              nativeButton={false}
-              render={
-                <a className="render-button" href="#disabled-custom">
-                  Disabled anchor
-                </a>
-              }
-            />
-            <Button
-              disabled
-              focusableWhenDisabled
-              nativeButton={false}
-              render={
-                <a className="render-button" href="#focusable-custom">
-                  Focusable anchor
-                </a>
-              }
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Roadmap</p>
-            <h2>Suggested Clone Order</h2>
-          </div>
-        </div>
-        <div className="api-list">
-          {learningOrder.map((item) => (
-            <article className="api-item" key={item.name}>
-              <div>
-                <h3>{item.name}</h3>
-                <p>{item.reason}</p>
-              </div>
-              <code>{item.status}</code>
-            </article>
-          ))}
-        </div>
       </section>
     </main>
   )

@@ -127,6 +127,24 @@ code {
   padding: 22px 0;
 }
 
+.route-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.route-link:hover h3,
+.back-link:hover {
+  color: #0f6b58;
+}
+
+.back-link {
+  color: #31423c;
+  display: inline-flex;
+  font-weight: 750;
+  margin-bottom: 32px;
+  text-decoration: none;
+}
+
 .api-item p {
   color: #51615b;
   line-height: 1.55;
@@ -161,6 +179,55 @@ code {
 .button-demo {
   display: grid;
   gap: 14px;
+}
+
+.input-demo {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.input-field {
+  color: #31423c;
+  display: grid;
+  font-weight: 750;
+  gap: 8px;
+}
+
+.demo-input {
+  background: #ffffff;
+  border: 1px solid #93a49d;
+  border-radius: 6px;
+  color: #16211d;
+  font: inherit;
+  min-height: 42px;
+  min-width: 0;
+  padding: 0 12px;
+  width: 100%;
+}
+
+.demo-input:focus {
+  border-color: #0f6b58;
+  outline: 3px solid #cce6df;
+}
+
+.demo-input[data-required] {
+  border-left: 4px solid #0f6b58;
+}
+
+.demo-input[data-disabled] {
+  background: #e5e8e4;
+  color: #697870;
+  cursor: default;
+}
+
+.demo-input[data-invalid] {
+  border-color: #b3261e;
+  outline-color: #f3c6c2;
+}
+
+.rendered-input {
+  grid-column: 1 / -1;
 }
 
 .demo-button,

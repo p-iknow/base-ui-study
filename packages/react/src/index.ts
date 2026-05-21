@@ -1,4 +1,6 @@
 export { Button } from './button'
 export type * from './button'
+export { Input } from './input'
+export type * from './input'
 export { Separator } from './separator'
 export type * from './separator'

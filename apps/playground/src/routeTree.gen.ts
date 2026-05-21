@@ -9,8 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as Phase3RouteImport } from './routes/phase-3'
+import { Route as Phase2RouteImport } from './routes/phase-2'
+import { Route as Phase1RouteImport } from './routes/phase-1'
 import { Route as IndexRouteImport } from './routes/index'
 
+const RoadmapRoute = RoadmapRouteImport.update({
+  id: '/roadmap',
+  path: '/roadmap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Phase3Route = Phase3RouteImport.update({
+  id: '/phase-3',
+  path: '/phase-3',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Phase2Route = Phase2RouteImport.update({
+  id: '/phase-2',
+  path: '/phase-2',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Phase1Route = Phase1RouteImport.update({
+  id: '/phase-1',
+  path: '/phase-1',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +43,72 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/phase-1': typeof Phase1Route
+  '/phase-2': typeof Phase2Route
+  '/phase-3': typeof Phase3Route
+  '/roadmap': typeof RoadmapRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/phase-1': typeof Phase1Route
+  '/phase-2': typeof Phase2Route
+  '/phase-3': typeof Phase3Route
+  '/roadmap': typeof RoadmapRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/phase-1': typeof Phase1Route
+  '/phase-2': typeof Phase2Route
+  '/phase-3': typeof Phase3Route
+  '/roadmap': typeof RoadmapRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/phase-1' | '/phase-2' | '/phase-3' | '/roadmap'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/phase-1' | '/phase-2' | '/phase-3' | '/roadmap'
+  id: '__root__' | '/' | '/phase-1' | '/phase-2' | '/phase-3' | '/roadmap'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  Phase1Route: typeof Phase1Route
+  Phase2Route: typeof Phase2Route
+  Phase3Route: typeof Phase3Route
+  RoadmapRoute: typeof RoadmapRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/roadmap': {
+      id: '/roadmap'
+      path: '/roadmap'
+      fullPath: '/roadmap'
+      preLoaderRoute: typeof RoadmapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/phase-3': {
+      id: '/phase-3'
+      path: '/phase-3'
+      fullPath: '/phase-3'
+      preLoaderRoute: typeof Phase3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/phase-2': {
+      id: '/phase-2'
+      path: '/phase-2'
+      fullPath: '/phase-2'
+      preLoaderRoute: typeof Phase2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/phase-1': {
+      id: '/phase-1'
+      path: '/phase-1'
+      fullPath: '/phase-1'
+      preLoaderRoute: typeof Phase1RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +121,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  Phase1Route: Phase1Route,
+  Phase2Route: Phase2Route,
+  Phase3Route: Phase3Route,
+  RoadmapRoute: RoadmapRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
