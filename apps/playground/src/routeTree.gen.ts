@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as Phase4RouteImport } from './routes/phase-4'
 import { Route as Phase3RouteImport } from './routes/phase-3'
 import { Route as Phase2RouteImport } from './routes/phase-2'
 import { Route as Phase1RouteImport } from './routes/phase-1'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const RoadmapRoute = RoadmapRouteImport.update({
   id: '/roadmap',
   path: '/roadmap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Phase4Route = Phase4RouteImport.update({
+  id: '/phase-4',
+  path: '/phase-4',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Phase3Route = Phase3RouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/phase-1': typeof Phase1Route
   '/phase-2': typeof Phase2Route
   '/phase-3': typeof Phase3Route
+  '/phase-4': typeof Phase4Route
   '/roadmap': typeof RoadmapRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/phase-1': typeof Phase1Route
   '/phase-2': typeof Phase2Route
   '/phase-3': typeof Phase3Route
+  '/phase-4': typeof Phase4Route
   '/roadmap': typeof RoadmapRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,28 @@ export interface FileRoutesById {
   '/phase-1': typeof Phase1Route
   '/phase-2': typeof Phase2Route
   '/phase-3': typeof Phase3Route
+  '/phase-4': typeof Phase4Route
   '/roadmap': typeof RoadmapRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/phase-1' | '/phase-2' | '/phase-3' | '/roadmap'
+  fullPaths:
+    | '/'
+    | '/phase-1'
+    | '/phase-2'
+    | '/phase-3'
+    | '/phase-4'
+    | '/roadmap'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/phase-1' | '/phase-2' | '/phase-3' | '/roadmap'
-  id: '__root__' | '/' | '/phase-1' | '/phase-2' | '/phase-3' | '/roadmap'
+  to: '/' | '/phase-1' | '/phase-2' | '/phase-3' | '/phase-4' | '/roadmap'
+  id:
+    | '__root__'
+    | '/'
+    | '/phase-1'
+    | '/phase-2'
+    | '/phase-3'
+    | '/phase-4'
+    | '/roadmap'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +98,7 @@ export interface RootRouteChildren {
   Phase1Route: typeof Phase1Route
   Phase2Route: typeof Phase2Route
   Phase3Route: typeof Phase3Route
+  Phase4Route: typeof Phase4Route
   RoadmapRoute: typeof RoadmapRoute
 }
 
@@ -86,6 +109,13 @@ declare module '@tanstack/react-router' {
       path: '/roadmap'
       fullPath: '/roadmap'
       preLoaderRoute: typeof RoadmapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/phase-4': {
+      id: '/phase-4'
+      path: '/phase-4'
+      fullPath: '/phase-4'
+      preLoaderRoute: typeof Phase4RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/phase-3': {
@@ -124,6 +154,7 @@ const rootRouteChildren: RootRouteChildren = {
   Phase1Route: Phase1Route,
   Phase2Route: Phase2Route,
   Phase3Route: Phase3Route,
+  Phase4Route: Phase4Route,
   RoadmapRoute: RoadmapRoute,
 }
 export const routeTree = rootRouteImport

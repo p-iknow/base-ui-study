@@ -299,6 +299,70 @@ code {
   width: 100%;
 }
 
+.avatar-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.avatar-example {
+  align-items: center;
+  border: 1px solid #dad7cb;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  min-height: 132px;
+  padding: 18px;
+}
+
+.avatar-example h2 {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.demo-avatar {
+  background: #ffffff;
+  border: 1px solid #b8c1bd;
+  border-radius: 999px;
+  display: inline-grid;
+  height: 72px;
+  overflow: hidden;
+  place-items: center;
+  width: 72px;
+}
+
+.demo-avatar-image,
+.demo-avatar-fallback {
+  border-radius: inherit;
+  grid-area: 1 / 1;
+  height: 100%;
+  width: 100%;
+}
+
+.demo-avatar-image {
+  display: block;
+  object-fit: cover;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.demo-avatar-image[data-starting-style],
+.demo-avatar-image[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.demo-avatar-fallback {
+  align-items: center;
+  background: #d8f3ea;
+  color: #0f4d40;
+  display: flex;
+  font-size: 1rem;
+  font-weight: 850;
+  justify-content: center;
+}
+
 @media (max-width: 720px) {
   .workspace,
   .section {

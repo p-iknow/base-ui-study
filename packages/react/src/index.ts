@@ -1,3 +1,5 @@
+export { Avatar } from './avatar'
+export type * from './avatar'
 export { Button } from './button'
 export type * from './button'
 export { Input } from './input'

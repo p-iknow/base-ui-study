@@ -24,7 +24,7 @@
 - 상세 학습 문서: `docs/base-ui-clone-study/learn/00-use-render-element.md`
 - 컴포넌트 namespace 타입 API 학습 문서: `docs/base-ui-clone-study/learn/01-component-namespace-types.md`
 - 렌더 파이프라인 다이어그램: `docs/base-ui-clone-study/learn/00-use-render-element-diagram.html`
-- 원본에서 학습용으로 줄인 부분: `enabled`, props getter, `useMergedRefsN`, render prop 경고, lazy component workaround, `button`/`img` 기본 속성 보정, cleanup ref callback 처리는 제외했다.
+- 원본에서 학습용으로 줄인 부분: props getter, `useMergedRefsN`, render prop 경고, lazy component workaround, `button`/`img` 기본 속성 보정, cleanup ref callback 처리는 제외했다. 이후 `useRenderElement`에는 `enabled` 옵션을 추가해 `false`일 때 `null`을 반환하는 흐름을 반영했다.
 - 다음 phase에서 다시 볼 부분: Button phase에서 event handler 병합 순서와 `preventBaseUIHandler` 같은 Base UI event 확장을 더 정확히 다룰 필요가 있다.
 
 ## 읽은 원본

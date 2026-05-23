@@ -23,6 +23,13 @@ const playgroundRoutes = [
       'Keeps native form control behavior while exposing input state attributes.',
   },
   {
+    to: '/phase-4',
+    label: 'Avatar',
+    status: 'Phase 4',
+    reason:
+      'Shares image loading state across parts and coordinates fallback/image mounting.',
+  },
+  {
     to: '/roadmap',
     label: 'Suggested Clone Order',
     status: 'Roadmap',

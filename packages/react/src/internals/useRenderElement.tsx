@@ -17,6 +17,7 @@ export type UseRenderElementParameters<
   RenderedElementType extends Element,
   TagName extends IntrinsicTagName,
 > = {
+  enabled?: boolean
   props?:
     | RenderFunctionProps<TagName>
     | Array<RenderFunctionProps<TagName> | undefined>
@@ -79,6 +80,10 @@ export function useRenderElement<
   }
 
   outProps.ref = mergedRef
+
+  if (params.enabled === false) {
+    return null
+  }
 
   if (typeof render === 'function') {
     return render(outProps, state)

@@ -36,6 +36,12 @@
       "import": "./dist/input/index.js",
       "default": "./dist/input/index.js"
     },
+    "./avatar": {
+      "@repo/source": "./src/avatar/index.ts",
+      "types": "./dist/avatar/index.d.ts",
+      "import": "./dist/avatar/index.js",
+      "default": "./dist/avatar/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {

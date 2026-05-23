@@ -250,6 +250,7 @@ return useRenderElement('div', componentProps, {
 
 ```tsx
 const params = {
+  enabled: true,
   state: { orientation: 'vertical' },
   ref: forwardedRef,
   props: [
@@ -278,6 +279,7 @@ const { className: classNameProp, render, style: styleProp } = componentProps
 
 `params`에는 컴포넌트가 계산한 값이 들어 있다.
 
+- 렌더링을 켜고 끄는 `enabled`
 - 현재 상태인 `state`
 - 최종 element에 붙일 내부 ARIA props
 - 사용자 DOM props에서 공통 props를 제거한 `elementProps`
@@ -645,7 +647,21 @@ outProps.ref = mergedRef
 - 병합된 ref
 - 병합된 event handlers
 
-### 8. render function이면 함수를 호출한다
+### 8. enabled가 false면 렌더링하지 않는다
+
+```tsx
+if (params.enabled === false) {
+  return null
+}
+```
+
+`enabled`는 컴포넌트가 계산한 조건에 따라 최종 element 자체를 렌더링하지 않을 때 사용한다. 기본값은 명시적으로 `false`를 넘기지 않은 모든 경우에 렌더링하는 형태다.
+
+이 옵션은 `render` override보다 먼저 적용된다. 따라서 `enabled`가 `false`이면 render function을 호출하지 않고, React element override도 clone하지 않으며, 기본 태그도 만들지 않는다.
+
+Avatar phase의 `Fallback`처럼 내부 상태에 따라 part가 DOM에 나타나거나 사라져야 하는 경우에 이 흐름이 필요하다. 예를 들어 이미지가 이미 `loaded` 상태이면 fallback part는 `enabled: false`를 넘겨 `null`을 반환하게 할 수 있다.
+
+### 9. render function이면 함수를 호출한다
 
 ```tsx
 if (typeof render === 'function') {
@@ -667,7 +683,7 @@ if (typeof render === 'function') {
 
 다만 이 render function은 React component처럼 사용하는 것이 아니라 일반 함수처럼 호출된다. 원본 Base UI에는 `render={Component}`처럼 대문자로 시작하는 컴포넌트를 직접 넘기는 실수를 경고하는 로직도 있다. 로컬 학습용 구현에서는 아직 그 경고 로직은 제외되어 있다.
 
-### 9. render가 React element면 cloneElement로 props를 주입한다
+### 10. render가 React element면 cloneElement로 props를 주입한다
 
 ```tsx
 if (React.isValidElement(render)) {
@@ -702,7 +718,7 @@ if (React.isValidElement(render)) {
 
 사용자가 element를 직접 제공했더라도 Base UI가 보장해야 하는 접근성 속성, state attribute, ref는 유지되어야 한다. 이것이 `cloneElement`를 사용하는 이유다.
 
-### 10. render가 없으면 기본 태그를 만든다
+### 11. render가 없으면 기본 태그를 만든다
 
 ```tsx
 return React.createElement(element, outProps)
@@ -839,6 +855,7 @@ Base UI의 컴포넌트 수가 늘어날수록 이런 차이는 버그가 된다
 
 `useRenderElement`의 책임은 다음과 같다.
 
+- `enabled` 조건에 따라 렌더링 여부를 결정한다.
 - state를 DOM attribute로 바꾼다.
 - 사용자 props와 내부 props를 합친다.
 - className과 style을 resolve한다.
@@ -854,7 +871,6 @@ Base UI의 컴포넌트 수가 늘어날수록 이런 차이는 버그가 된다
 
 원본 Base UI의 `useRenderElement`에는 더 많은 방어 로직과 기능이 있다.
 
-- `enabled` 옵션으로 렌더링을 비활성화하고 `null`을 반환하는 기능
 - 여러 ref 배열을 병합하는 `useMergedRefsN`
 - render prop에 React component를 직접 넘기는 실수를 감지하는 개발 모드 경고
 - `React.lazy` element 관련 workaround
@@ -865,6 +881,7 @@ Base UI의 컴포넌트 수가 늘어날수록 이런 차이는 버그가 된다
 
 로컬 구현은 이런 기능을 아직 모두 포함하지 않는다. 지금 구현은 다음 핵심만 담고 있다.
 
+- `enabled` 옵션으로 렌더링을 비활성화하고 `null`을 반환하는 기능
 - 기본 태그 렌더링
 - React element override
 - render function override
