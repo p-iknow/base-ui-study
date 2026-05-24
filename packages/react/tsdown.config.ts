@@ -14,7 +14,7 @@ function collectEntries(dir: string): Record<string, string> {
       continue
     }
 
-    if (!/\.(ts|tsx)$/.test(name)) {
+    if (!/\.(ts|tsx)$/.test(name) || /\.test\.(ts|tsx)$/.test(name)) {
       continue
     }
 

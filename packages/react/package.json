@@ -42,6 +42,18 @@
       "import": "./dist/avatar/index.js",
       "default": "./dist/avatar/index.js"
     },
+    "./toggle": {
+      "@repo/source": "./src/toggle/index.ts",
+      "types": "./dist/toggle/index.d.ts",
+      "import": "./dist/toggle/index.js",
+      "default": "./dist/toggle/index.js"
+    },
+    "./toggle-group": {
+      "@repo/source": "./src/toggle-group/index.ts",
+      "types": "./dist/toggle-group/index.d.ts",
+      "import": "./dist/toggle-group/index.js",
+      "default": "./dist/toggle-group/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -55,6 +67,8 @@
   "devDependencies": {
     "@types/node": "catalog:",
     "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "react-dom": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   },

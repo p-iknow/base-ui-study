@@ -16,6 +16,7 @@ Use this skill to rebuild Base UI as small learning-oriented vertical slices. Pr
 5. Prioritize public API, accessibility surface, state attributes, ref behavior, and observable interactions.
 6. Defer positioning, popup, composite navigation, and broad internal abstractions until a phase requires them.
 7. Never discard user changes or unrelated repository work.
+8. Define `*DataAttributes` exports as `const` objects with matching union types, not TypeScript enums.
 
 ## Local Map
 

@@ -30,6 +30,13 @@ const playgroundRoutes = [
       'Shares image loading state across parts and coordinates fallback/image mounting.',
   },
   {
+    to: '/phase-5',
+    label: 'Toggle',
+    status: 'Phase 5',
+    reason:
+      'Adds controlled boolean state and grouped toggle value coordination on top of button behavior.',
+  },
+  {
     to: '/roadmap',
     label: 'Suggested Clone Order',
     status: 'Roadmap',

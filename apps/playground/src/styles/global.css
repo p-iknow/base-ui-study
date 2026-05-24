@@ -363,6 +363,73 @@ code {
   justify-content: center;
 }
 
+.toggle-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.toggle-demo {
+  align-content: start;
+}
+
+.toggle-demo h2 {
+  font-size: 1.25rem;
+}
+
+.toggle-button {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #9ba9a3;
+  border-radius: 6px;
+  color: #16211d;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-weight: 750;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 14px;
+  text-decoration: none;
+}
+
+.toggle-button:hover {
+  border-color: #0f6b58;
+}
+
+.toggle-button:focus-visible {
+  outline: 3px solid #cce6df;
+  outline-offset: 2px;
+}
+
+.toggle-button[data-pressed] {
+  background: #164b3f;
+  border-color: #164b3f;
+  color: #ffffff;
+}
+
+.toggle-button[data-disabled] {
+  background: #d8ddd9;
+  border-color: #c2cbc5;
+  color: #61706a;
+  cursor: default;
+}
+
+.toggle-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.toggle-group[data-orientation='vertical'] {
+  align-items: start;
+  flex-direction: column;
+}
+
+.rendered-toggle {
+  color: #0f4d40;
+}
+
 @media (max-width: 720px) {
   .workspace,
   .section {

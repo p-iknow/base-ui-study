@@ -21,6 +21,7 @@
     "@changesets/cli": "^2.31.0",
     "@softarc/sheriff-core": "^0.19.6",
     "@vitest/coverage-v8": "catalog:",
+    "happy-dom": "^20.9.0",
     "knip": "^6.4.1",
     "nx": "22.7.2",
     "oxfmt": "^0.45.0",
