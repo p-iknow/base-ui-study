@@ -1,4 +1,4 @@
-# Phase 26. Menu
+# Phase 25. Menu
 
 목표는 composite focus, nested popup, typeahead를 가진 menu system을 완성한다.
 

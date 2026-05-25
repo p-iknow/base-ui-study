@@ -1,4 +1,4 @@
-# Phase 25. Alert Dialog와 Drawer
+# Phase 24. Alert Dialog와 Drawer
 
 목표는 `Dialog` foundation을 specialization으로 확장한다.
 

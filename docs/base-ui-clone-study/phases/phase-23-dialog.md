@@ -1,4 +1,4 @@
-# Phase 24. Dialog
+# Phase 23. Dialog
 
 목표는 modal state, focus trap, aria title/description을 가진 dialog를 완성한다.
 

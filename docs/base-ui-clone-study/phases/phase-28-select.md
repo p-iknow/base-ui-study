@@ -1,4 +1,4 @@
-# Phase 29. Select
+# Phase 28. Select
 
 목표는 listbox selection, trigger/value display, popup positioning을 가진 select를 완성한다.
 

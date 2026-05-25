@@ -1,4 +1,4 @@
-# Phase 18. Number Field
+# Phase 17. Number Field
 
 목표는 parsing, formatting, stepping을 가진 spinbutton control을 완성한다.
 

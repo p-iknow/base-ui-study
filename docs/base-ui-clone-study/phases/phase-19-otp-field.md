@@ -1,4 +1,4 @@
-# Phase 20. OTP Field
+# Phase 19. OTP Field
 
 목표는 여러 input을 하나의 value로 조율하고 paste behavior를 처리한다.
 

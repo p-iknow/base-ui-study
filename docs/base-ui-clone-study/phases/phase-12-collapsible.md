@@ -1,4 +1,4 @@
-# Phase 13. Collapsible
+# Phase 12. Collapsible
 
 목표는 open state, mounted state, transition attribute를 가진 disclosure primitive를 완성한다.
 

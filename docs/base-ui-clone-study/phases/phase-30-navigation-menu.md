@@ -1,4 +1,4 @@
-# Phase 31. Navigation Menu
+# Phase 30. Navigation Menu
 
 목표는 menu-like navigation, viewport coordination, pointer grace behavior를 완성한다.
 

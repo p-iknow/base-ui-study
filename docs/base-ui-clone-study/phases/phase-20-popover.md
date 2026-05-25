@@ -1,4 +1,4 @@
-# Phase 21. Popover
+# Phase 20. Popover
 
 목표는 popup foundation을 `Popover` 완성에 필요한 만큼 구현한다.
 

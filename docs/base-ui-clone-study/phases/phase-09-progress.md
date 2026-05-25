@@ -1,4 +1,4 @@
-# Phase 10. Progress
+# Phase 9. Progress
 
 목표는 range math, label/value context, indicator sizing을 가진 value display component를 완성한다.
 

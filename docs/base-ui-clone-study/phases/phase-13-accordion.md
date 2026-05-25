@@ -1,4 +1,4 @@
-# Phase 14. Accordion
+# Phase 13. Accordion
 
 목표는 여러 `Collapsible` item을 collection과 group state로 조율한다.
 

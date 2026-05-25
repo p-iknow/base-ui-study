@@ -1,4 +1,4 @@
-# Phase 30. Combobox와 Autocomplete
+# Phase 29. Combobox와 Autocomplete
 
 목표는 input value, selected value, filtered collection이 섞이는 선택 컴포넌트를 완성한다.
 

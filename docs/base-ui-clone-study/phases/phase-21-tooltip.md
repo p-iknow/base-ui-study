@@ -1,4 +1,4 @@
-# Phase 22. Tooltip
+# Phase 21. Tooltip
 
 목표는 delayed hover/focus popup을 완성하고 popup foundation을 확장한다.
 

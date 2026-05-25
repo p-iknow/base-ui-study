@@ -1,4 +1,4 @@
-# Phase 32. Scroll Area
+# Phase 31. Scroll Area
 
 목표는 custom scrollbar와 viewport measurement를 가진 scroll area를 완성한다.
 

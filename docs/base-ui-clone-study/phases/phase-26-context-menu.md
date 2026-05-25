@@ -1,4 +1,4 @@
-# Phase 27. Context Menu
+# Phase 26. Context Menu
 
 목표는 pointer context trigger 위에서 `Menu` foundation을 재사용한다.
 

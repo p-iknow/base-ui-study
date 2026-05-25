@@ -1,4 +1,4 @@
-# Phase 19. Slider
+# Phase 18. Slider
 
 목표는 pointer와 keyboard로 range value를 조작하는 slider를 완성한다.
 

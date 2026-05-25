@@ -1,4 +1,4 @@
-# Phase 15. Tabs
+# Phase 14. Tabs
 
 목표는 roving focus, activation mode, panel 연결을 가진 tabs component를 완성한다.
 

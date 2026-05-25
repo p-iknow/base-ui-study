@@ -1,4 +1,4 @@
-# Phase 12. Direction Provider와 CSP Provider
+# Phase 11. Direction Provider와 CSP Provider
 
 목표는 이후 복합 컴포넌트가 공유할 direction과 style nonce context를 완성한다.
 

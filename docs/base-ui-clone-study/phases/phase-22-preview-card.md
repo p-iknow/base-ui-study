@@ -1,4 +1,4 @@
-# Phase 23. Preview Card
+# Phase 22. Preview Card
 
 목표는 tooltip-like popup에 richer content와 pointer timing을 더한다.
 

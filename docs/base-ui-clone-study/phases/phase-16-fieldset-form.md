@@ -1,4 +1,4 @@
-# Phase 17. Fieldset과 Form
+# Phase 16. Fieldset과 Form
 
 목표는 field 상태를 form submit/reset 흐름과 연결한다.
 

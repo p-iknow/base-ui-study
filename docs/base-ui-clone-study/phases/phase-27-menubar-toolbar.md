@@ -1,4 +1,4 @@
-# Phase 28. Menubar와 Toolbar
+# Phase 27. Menubar와 Toolbar
 
 목표는 horizontal composite root와 toolbar roving focus를 완성한다.
 

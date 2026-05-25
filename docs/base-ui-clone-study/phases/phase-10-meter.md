@@ -1,4 +1,4 @@
-# Phase 11. Meter
+# Phase 10. Meter
 
 목표는 `Progress`에서 만든 range 기반을 재사용해 meter semantics를 완성한다.
 

@@ -21,30 +21,29 @@
 4. Avatar
 5. Toggle
 6. Switch
-7. Checkbox
+7. Checkbox and Checkbox Group
 8. Radio Group
-9. Checkbox Group
-10. Progress
-11. Meter
-12. Direction Provider와 CSP Provider
-13. Collapsible
-14. Accordion
-15. Tabs
-16. Field
-17. Fieldset과 Form
-18. Number Field
-19. Slider
-20. OTP Field
-21. Popover
-22. Tooltip
-23. Preview Card
-24. Dialog
-25. Alert Dialog와 Drawer
-26. Menu
-27. Context Menu
-28. Menubar와 Toolbar
-29. Select
-30. Combobox와 Autocomplete
-31. Navigation Menu
-32. Scroll Area
-33. Toast
+9. Progress
+10. Meter
+11. Direction Provider와 CSP Provider
+12. Collapsible
+13. Accordion
+14. Tabs
+15. Field
+16. Fieldset과 Form
+17. Number Field
+18. Slider
+19. OTP Field
+20. Popover
+21. Tooltip
+22. Preview Card
+23. Dialog
+24. Alert Dialog와 Drawer
+25. Menu
+26. Context Menu
+27. Menubar와 Toolbar
+28. Select
+29. Combobox와 Autocomplete
+30. Navigation Menu
+31. Scroll Area
+32. Toast

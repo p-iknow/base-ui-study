@@ -1,4 +1,4 @@
-# Phase 16. Field
+# Phase 15. Field
 
 목표는 label, description, error, validity state를 묶는 field-level aria wiring을 완성한다.
 
