@@ -37,6 +37,13 @@ const playgroundRoutes = [
       'Adds controlled boolean state and grouped toggle value coordination on top of button behavior.',
   },
   {
+    to: '/phase-6',
+    label: 'Switch',
+    status: 'Phase 6',
+    reason:
+      'Connects boolean state to a hidden checkbox for native labels, form submission, and reset behavior.',
+  },
+  {
     to: '/roadmap',
     label: 'Suggested Clone Order',
     status: 'Roadmap',

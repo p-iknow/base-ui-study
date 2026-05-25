@@ -54,6 +54,12 @@
       "import": "./dist/toggle-group/index.js",
       "default": "./dist/toggle-group/index.js"
     },
+    "./switch": {
+      "@repo/source": "./src/switch/index.ts",
+      "types": "./dist/switch/index.d.ts",
+      "import": "./dist/switch/index.js",
+      "default": "./dist/switch/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
